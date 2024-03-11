@@ -1,0 +1,31 @@
+.designs{
+    position: relative;
+    top: 60px;
+}
+
+.designs-row .card-body{
+    cursor: pointer;
+    height: 600px;
+    overflow: hidden;
+    background-color: rgba(218, 218, 218, 0) !important;
+}
+
+.designs-row .card-body img{
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px){
+    .designs{
+        position: relative;
+        top: -250px;
+    }
+    .designs-row .card{
+        margin-bottom: -100px !important;
+    }
+}
+
+@media only screen and (max-width: 365px){
+    .designs-row .card{
+        margin-bottom: -130px !important;
+    }
+}

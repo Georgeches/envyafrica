@@ -1,0 +1,41 @@
+.carousel{
+    position: relative;
+    bottom: 10vh;
+}
+
+.carousel-item{
+    height: 110vh;
+}
+
+.carousel-item img{
+    filter: brightness(90%);
+    width: 100%;
+    height: auto; 
+}
+
+.carousel-content{
+    position: relative;
+    bottom: 80vh;
+}
+
+.carousel-content-second{
+    position: relative;
+    bottom: 70vh;
+}
+
+@media only screen and (max-width: 600px) {
+    .carousel{
+        height: 100vh;
+        overflow: hidden;
+        bottom: 0vh;
+    }
+    .carousel-item img{
+        width: auto;
+        height: 60vh;
+        filter: brightness(100%);
+    }
+    .carousel-content{
+        position: relative;
+        bottom: 30vh;
+    }
+}

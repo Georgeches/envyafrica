@@ -1,0 +1,21 @@
+.checkout-page{
+    margin-top: 40px;
+    display: flex;
+    justify-content: center !important;
+}
+.contact-info form input{
+    margin-bottom: 20px;
+}
+
+.next-btn{
+    height: 50px;
+    width: 300px;
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+@media only screen and (min-width: 1200px){
+    .contact-info{
+        width: 40%;
+    }
+}

@@ -1,0 +1,43 @@
+.navbar-right{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.flex-align-center{
+    display: flex;
+    align-items: center;
+}
+
+.admin-body{
+    position: relative;
+    top: 50px;
+}
+
+.admin-flex-left{
+    width: 20%;
+}
+
+.collection-one .create i{
+    font-size: 26px;
+    border-radius: 5px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 0, 0, 0.37);
+}
+
+.admin-flex-right{
+    width: 80%;
+}
+
+.admin-flex-right{
+    height: 77vh;
+    overflow: scroll;
+}
+
+.collection{
+    height: 45px;
+}

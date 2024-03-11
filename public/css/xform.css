@@ -1,0 +1,69 @@
+.xform{
+    display: grid;
+    place-items: center;
+}
+
+.xform form h2{
+    color: #FD3434;
+}
+
+.xform form{
+    margin-top: 100px;
+    min-height: 400px;
+    width: 35%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 50px 0px;
+    border: 1px solid rgb(179, 179, 179);
+}
+  
+.xform form input, .xform form textarea{
+    height: 50px;
+    width: 80%;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    color: rgb(89, 89, 89);
+    padding-left: 10px;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.xform form textarea{
+    height: 200px;
+}
+
+.xform form p{
+    text-align: left;
+    margin-bottom: 20px;
+    margin-left: 11%;
+}
+
+.xform form input.submit-create-product{
+    height: 50px;
+    width: 80%;
+    background-color: #FD3434;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 7px;
+}
+
+@media only screen and (max-width:600px){
+    .xform form{
+        width: 95%;
+        height: 90%;
+        box-shadow: none;
+        border-top: 1px solid #FD3434;
+        border-bottom: 1px solid #FD3434;
+        margin-bottom: 50px;
+    }
+    .xform form input, .xform form button{
+        width: 90%;
+    }
+}

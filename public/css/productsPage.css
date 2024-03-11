@@ -1,0 +1,48 @@
+.filter-section{
+    width: 15%;
+    margin-top: 5vh;
+}
+
+.filter-category{
+    margin-bottom: 13px;
+    font-weight: 500;
+}
+
+.allproducts .card-body{
+    height: 500px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 80px;
+}
+
+.products-page{
+    position: relative;
+    top: 100px;
+}
+
+.card-body-image{
+    overflow: hidden;
+    height: 90%;
+}
+
+.card-body-image img{
+    height: 100%;
+    width: auto;
+    margin-top: 20px;
+    mix-blend-mode:multiply;
+}
+
+@media only screen and (max-width: 600px){
+    .allproducts{
+        justify-content: space-between;
+    }
+    .allproducts .card-body img{
+        width: 60%;
+        height: auto;
+        margin-top: 20px;
+        mix-blend-mode:multiply;
+    }
+    .allproducts .card .card-body{
+        background-color: transparent;
+    }
+}
