@@ -1,9 +1,11 @@
-@extends('layout')
+@props(['products', 'categories'])
 
-@section('content')
-@include('products.partials.navbar')
-<div class="container-fluid products-page d-flex gap-1 p-0 justify-content-between">
-    <div class="filter-section px-2">
+<div class="offcanvas offcanvas-start w-75" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasFilterLabel">Filter</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
         <h4 class="mb-2">All products ({{count($products)}})</h4>
         <hr>
         <ul class="filter-categories mt-4 mb-5">
@@ -49,24 +51,4 @@
             </li>
         </ul>
     </div>
-    <div class="container w-75 allproducts p-0">
-        <div class="mb-2" style="height: fit-content;">
-            <div class="d-md-none mb-2">
-                <button style="width: 100px;" class="btn btn-outline-dark text-dark d-flex align-items-center justify-content-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter">
-                    <i class="las la-bars" style="font-size: 22px"></i> filter
-                </button>
-                <x-filterOffcanvas :products="$products" :categories="$categories"/>
-            </div>
-            <form action="" class="w-100 all-form d-flex justify-content-center p-0" style="position: relative">
-                <input type="text" placeholder="Search..." class="form-control all-search w-100 ps-3" name="search" id="search">
-                <button type="submit" class="btn btn-link search-btn text-dark" style="position: absolute; right: 12px; top: 6px;"><i class="bi bi-search"></i></button>
-            </form>
-        </div>
-        <div class="ready-row p-0 d-flex flex-wrap justify-content-start">
-            @foreach ($products as $product)
-                <x-product :product="$product"/>
-            @endforeach
-        </div>
-    </div>
 </div>
-@endsection

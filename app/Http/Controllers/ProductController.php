@@ -32,7 +32,9 @@ class ProductController extends Controller
         return view('products.show', [
             'product' => $product,
             'product_images' => $productImages,
-            'category' => $category
+            'category' => $category,
+            'products' => Product::latest()->get(),
+            'cart' => session()->get('cart', []),
         ]);
     }
 

@@ -2,7 +2,7 @@
 
 @section('content')
     @include('products.partials.navbar')
-    <div class="container border p-4" style="position: relative; top: 100px;">
+    <div class="container border p-4 cart-page" style="position: relative; top: 150px;">
         <div class="row">
             <div class="col-12 col-md-6 col-lg-6" style="height: 100%; overflow-y: scroll;">
                 <h4 class="mb-4">Cart</h4>
@@ -10,7 +10,7 @@
                     @foreach (session('cart') as $item)
                         <div class="cart-item w-100 mb-3 border py-3 px-3">
                             <div class="w-100 mb-2 d-flex justify-content-between flex-wrap">
-                                <div class="cart-image" style="width: 100px; height: 100px;">
+                                <div class="cart-image" style="width: 100px;">
                                     <img src={{ asset("storage/$item->image") }} class="w-100" alt="">
                                 </div>
                                 <div class="item-info w-100 px-1 pt-3 d-flex justify-content-between flex-wrap">

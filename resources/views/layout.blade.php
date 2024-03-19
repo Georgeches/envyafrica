@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('css/designsSection.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/readySection.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/productsSection.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/productsPage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/cartOffcanvas.css') }}">

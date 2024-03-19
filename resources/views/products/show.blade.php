@@ -1,18 +1,13 @@
 @php
-    $options = [
-        [ 'value' => '', 'label'=> 'Please select a size' ],
-        [ 'value'=> 'Medium', 'label'=> 'Medium' ],
-        [ 'value'=> 'Large', 'label'=> 'Large' ],
-        [ 'value'=> 'X Large', 'label'=> 'X Large' ],
-        [ 'value'=> 'XX Large', 'label'=> 'XX Large' ],
-    ];
     $text = $product['description'];
     $imageDisplay = $_REQUEST['image'] ?? $product->image;
+    $inBag = $product->alreadyInBag($product->id);
 @endphp
 
 @extends('layout')
 
 @section('content')
+    @include('products.partials.navbar')
     <div class="links pt-5 ps-lg-5 ps-3">
         <a href="/">Home / </a> <a href="/all"> Products / </a> <a href="/all?category={{$category[0]['id']}}"> {{$category[0]['name']}}/</a> <a href="/all"> {{$product->name}} / </a>
     </div>
@@ -48,13 +43,31 @@
                 <div class='d-flex'>
                     <p class='fw-light' style='font-size: small;'>{{$product['description']}}</p>
                 </div>
-                <select name="size" id="">
-                    @foreach($options as $option)
-                        <option value="{{$option['value']}}">{{$option['label']}}</option>
-                    @endforeach
-                </select>
-                <a href="/cart/add/{{$product->id}}" class='btn btn-dark text-center mt-3 add-cart'>ADD TO BAG</a>
+                @if ($inBag)
+                    <form action="/cart/delete/{{$product->id}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn text-center mt-3 remove-cart d-flex justify-content-center align-items-center">REMOVE FROM BAG<i class="bi bi-cart-dash ms-2" style="font-size: 22px;"></i></button>
+                    </form>
+                @else
+                    <a href="/cart/add/{{$product->id}}" class='btn text-center mt-3 add-cart d-flex justify-content-center align-items-center'>ADD TO BAG <i class="bi bi-cart-plus ms-3" style="font-size: 23px;"></i></a>
+                @endif
             </div>
+        </div>
+    </div>
+
+    <div class="container similar">
+        <h4>Similar</h4>
+        <div class="d-flex align-items-center gap-1" style="overflow-x: scroll">
+            @php $count = 0 @endphp
+            @foreach ($products as $p)
+                @if ($count < 6)
+                    <x-productSmall :product="$p"/>
+                    @php $count++ @endphp
+                @else
+                    @break
+                @endif
+            @endforeach
         </div>
     </div>
 @endsection

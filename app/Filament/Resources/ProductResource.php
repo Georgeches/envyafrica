@@ -35,7 +35,7 @@ class ProductResource extends Resource
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function getGlobbalySearchableAttributes(): array{
-        return ['name', 'sku', 'slug', 'description', 'brand', 'model', 'category.name'];
+        return ['name', 'sku', 'slug', 'description', 'brand', 'category.name'];
     }
 
     public static function getNavigationBadge(): ?string
@@ -69,13 +69,12 @@ class ProductResource extends Resource
                                     }),
                                 Forms\Components\TextInput::make('brand')
                                     ->default('unknown'),
-                                Forms\Components\TextInput::make('model')
-                                    ->default('unknown'),
                                 Forms\Components\Select::make('category_id')
                                     ->label('Category')
                                     ->options(
                                         Category::all()->pluck('name', 'id')->toArray()
-                                    ),
+                                    )
+                                    ->required(),
                                 Forms\Components\MarkdownEditor::make('description')->columnSpan('full'),
                             ])->columns(2)
                     ]),
@@ -88,7 +87,8 @@ class ProductResource extends Resource
                                     ->disabled()
                                     ->dehydrated(),
                                 Forms\Components\TextInput::make('sku')
-                                    ->label('SKU (Stock Keeping Unit)'),
+                                    ->label('SKU (Stock Keeping Unit)')
+                                    ->required(),
                                 Forms\Components\TextInput::make('quantity')
                                     ->numeric()
                                     ->required(),
@@ -101,6 +101,7 @@ class ProductResource extends Resource
                                 Forms\Components\FileUpload::make('image')
                                     ->imageEditor(true)
                                     ->columnSpan('full')
+                                    ->required()
                             ])->collapsible()
                     ])
             ]);
@@ -115,10 +116,6 @@ class ProductResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('brand')
-                    ->searchable()
-                    ->sortable()
-                    ->toggleable(),
-                Tables\Columns\TextColumn::make('model')
                     ->searchable()
                     ->sortable()
                     ->toggleable(),

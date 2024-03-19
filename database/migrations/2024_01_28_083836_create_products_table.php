@@ -21,7 +21,10 @@ return new class extends Migration
                     ->constrained('categories')
                     ->cascadeOnDelete();
             $table->string('brand');
-            $table->string('model');
+            $table->string('slug')
+                    ->unique();
+            $table->string('sku')
+                    ->unique();
             $table->integer('quantity');
             $table->timestamps();
         });

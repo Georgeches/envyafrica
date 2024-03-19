@@ -1,41 +1,46 @@
 .carousel{
+    height: 88vh;
     position: relative;
-    bottom: 10vh;
+    top: 100px;
+    overflow: hidden;
 }
 
-.carousel-item{
-    height: 110vh;
+.carousel-captions{
+    position: absolute;
+    height: 55vh;
+    width: 30%;
+    top: 20vh;
+    left: 10vh;
+    z-index: 50;
 }
 
-.carousel-item img{
-    filter: brightness(90%);
-    width: 100%;
-    height: auto; 
+.captions-bottom button{
+    height: 80px;
+    width: 250px;
+    border: none;
+    font-size: 25px;
 }
 
-.carousel-content{
-    position: relative;
-    bottom: 80vh;
-}
-
-.carousel-content-second{
-    position: relative;
-    bottom: 70vh;
-}
-
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px){
     .carousel{
-        height: 100vh;
-        overflow: hidden;
-        bottom: 0vh;
-    }
-    .carousel-item img{
-        width: auto;
-        height: 60vh;
-        filter: brightness(100%);
-    }
-    .carousel-content{
+        height: fit-content;
         position: relative;
-        bottom: 30vh;
+        top: 70px;
+        overflow: hidden;
+    }
+}
+
+@media only screen and (max-width: 568px){
+    .carousel-inner{
+        height: fit-content;
+    }
+
+    .carousel-item{
+        height: fit-content;
+    }
+
+    .carousel-item img{
+        width: 100%;
+        height: auto !important;
     }
 }

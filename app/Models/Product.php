@@ -11,7 +11,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'model', 'brand', 'price', 'slug', 'sku', 'description', 'category_id', 'image', 'quantity'];
+    protected $fillable = ['name', 'brand', 'price', 'slug', 'sku', 'description', 'category_id', 'image', 'quantity'];
 
     public function product_images(): HasMany{
         return $this->hasMany(ProductImage::class);
@@ -30,8 +30,7 @@ class Product extends Model
         if(isset($filters['search'])){
             $query->where('name', 'like', '%' . $filters['search'] . '%')
                 ->orWhere('description', 'like', '%' . $filters['search'] .'%')
-                ->orWhere('brand', 'like', '%' . $filters['search'] .'%')
-                ->orWhere('model', 'like', '%' . $filters['search'] .'%');
+                ->orWhere('brand', 'like', '%' . $filters['search'] .'%');
         }
         if(isset($filters['category'])){
             $query->where('category_id', 'like', '%' . $filters['category'] . '%');
@@ -50,5 +49,15 @@ class Product extends Model
         if(isset($filters['minprice'])){
             $query->where('price', '>=', $filters['minprice']);
         }
+    }
+
+    public function alreadyInBag($id){
+        $cart = session()->get('cart', []);
+        foreach($cart as $i){
+            if($i['id'] === $id){
+                return true;
+            }
+        }
+        return false;
     }
 }

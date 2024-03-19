@@ -1,54 +1,29 @@
-<section class="container designs">
-    <div class="header">
-        <h2 class="text-lg-white fw-light mb-4">Featured Designs</h2>
+<section class="d-flex gap-3 flex-wrap justify-content-center design-section">
+    <div class="design">
+        <div class="design-img w-100 overflow-hidden">
+            <img class="w-100" src="https://i.pinimg.com/736x/2a/18/bc/2a18bceeab252f776447374f5bd7d87e.jpg"/>
+        </div>
+        <div class="design-texts text-center">
+            <h3>CROCHETS</h3>
+            <p class="">Shop Natural Braid Styles</p>
+        </div>
     </div>
-    <div class="row designs-row">
-        <div class="col-md-6 col-lg-4">
-            <div class="card my-md-2 border-0">
-            <div class="card-body p-0 bg-light">
-                <img class="img-fluid" src="https://m.hng.io/catalog/product/9/6/962752_ivory_4.jpg?io=PDP" alt=""/>
-            </div>
-            </div>
+    <div class="design">
+        <div class="design-img w-100 overflow-hidden">
+            <img class="w-100" src="https://i.pinimg.com/736x/2a/18/bc/2a18bceeab252f776447374f5bd7d87e.jpg"/>
         </div>
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card my-md-2 border-0">
-            <div class="card-body p-0 bg-light">
-                <img class="img-fluid" src="https://m.hng.io/catalog/product/9/6/960893_grey_2.jpg?io=PDP" alt=""/>
-            </div>
-            </div>
+        <div class="design-texts text-center">
+            <h3>CROCHETS</h3>
+            <p class="">Shop Natural Braid Styles</p>
         </div>
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card my-md-2 border-0">
-            <div class="card-body p-0 bg-light">
-                <img class="img-fluid" src="https://m.hng.io/catalog/product/9/6/960884_black_and_silver_2.jpg?io=PDP" alt=""/>
-            </div>
-            </div>
+    </div>
+    <div class="design">
+        <div class="design-img w-100 overflow-hidden">
+            <img class="w-100" src="https://i.pinimg.com/736x/2a/18/bc/2a18bceeab252f776447374f5bd7d87e.jpg"/>
         </div>
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card my-md-2 border-0">
-            <div class="card-body p-0 bg-light">
-                <img class="img-fluid" src="https://m.hng.io/catalog/product/9/5/958851_black_4.jpg?io=PDP" alt=""/>
-            </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card my-md-2 border-0">
-            <div class="card-body p-0 bg-light">
-                <img class="img-fluid" src="https://m.hng.io/catalog/product/9/6/962367_black_2.jpg?io=PDP" alt=""/>
-            </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card my-md-2 border-0">
-            <div class="card-body p-0 bg-light">
-                <img class="img-fluid" src="https://m.hng.io/catalog/product/9/5/955835_black_4.jpg?io=PLP&dpr=1" alt=""/>
-            </div>
-            </div>
+        <div class="design-texts text-center">
+            <h3>CROCHETS</h3>
+            <p class="">Shop Natural Braid Styles</p>
         </div>
     </div>
 </section>
