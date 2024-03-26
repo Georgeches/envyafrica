@@ -1,5 +1,10 @@
 @extends('layout')
 
+@php
+    $customer = session()->get('customer');
+    $cartItems = session('cart');             
+@endphp
+
 @section('content')
     @include('products.partials.navbar')
     <div class="container border p-4 cart-page" style="position: relative; top: 150px;">
@@ -42,7 +47,17 @@
                 <h6>Subtotal: Ksh {{$total}}</h6>
                 <h6>Tax: Ksh {{$tax}}</h6>
                 <h6>Total: Ksh {{$total + $tax}}</h6>
-                <a href="/customerinfo" class="btn btn-warning mt-2 text-white">Checkout</a>
+                
+                @if (isset($customer) && count($cartItems)>0)
+                    <a href="/checkout" class="btn btn-warning mt-2 text-white">Checkout</a>
+                @endif
+                @if(!isset($customer) && count($cartItems)>0)
+                    <a href="/customerinfo" class="btn btn-warning mt-2 text-white">Checkout</a>
+                @endif
+                @if(count($cartItems) === 0)
+                    <p class="mt-5 text-danger" style="font-size: 13px">You have not yet added any item to cart</p>
+                    <a href="/all" class="btn btn-sm" style="background-color: #eba805; color: white">Start shopping</a>
+                @endif
             </div>
         </div>
     </div>

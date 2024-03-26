@@ -6,6 +6,8 @@
 .design{
     position: relative;
     width: 350px;
+    max-height: 400px;
+    overflow: hidden;
     border-radius: 10px;
 }
 
@@ -24,6 +26,6 @@
 }
 
 .design-texts p{
-    color: rgb(192, 192, 192);
+    color: rgb(235, 235, 235);
     font-size: 16px;
 }

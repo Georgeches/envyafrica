@@ -9,6 +9,28 @@ use Illuminate\Validation\Rule;
 
 class CustomerController extends Controller
 {
+    public function saveCustomerDetails(Request $request){
+        session()->forget('customer');
+        $customers = Customer::all();
+        $customerSession = session()->get('customer');
+
+        $customerDetails = $request->validate([
+            'firstname' => 'required',
+            'secondname' => 'required',
+            'email' => 'required',
+            'addressone' => 'required',
+            'addresstwo' => 'required',
+            'phonecountry' => 'required',
+            'phone' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+        ]);
+        $customerDetails['exists'] = true;
+
+        session()->put('customer', $customerDetails);
+        return redirect('/checkout');
+    }
+
     public function create(){
         return view('customerForm', [
             'countries'=>$this->getCountries()

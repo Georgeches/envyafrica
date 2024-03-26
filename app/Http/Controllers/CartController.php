@@ -33,6 +33,7 @@ class CartController extends Controller
             $cart[$id] = $product;
         }
 
+        session()->put('cart_expiry', now()->addDays(2));
         session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Product added to cart');
     }

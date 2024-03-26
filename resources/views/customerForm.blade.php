@@ -1,29 +1,18 @@
 @extends('layout')
 
 @php
-    $customer = [
-        'firstname' => '',
-        'secondname' => '',
-        'email' => '',
-        'addressone' => '',
-        'addresstwo' => '',
-        'phone' => '',
-        'phonecountry' => '',
-        'city' => '',
-        'country' => '',
-    ];
     $customerSession = session()->get('customer');
-    if(isset($customerSession)){
-        $customer['firstname'] = $customerSession['firstname'];
-        $customer['secondname'] = $customerSession['secondname'];
-        $customer['email'] = $customerSession['email'];
-        $customer['phone'] = $customerSession['phone'];
-        $customer['phonecountry'] = $customerSession['phonecountry'];
-        $customer['addressone'] = $customerSession['addressone'];
-        $customer['addresstwo'] = $customerSession['addresstwo'];
-        $customer['city'] = $customerSession['city'];
-        $customer['country'] = $customerSession['country'];
-    }
+    $customer = [
+        'firstname' => $customerSession['firstname'] ?? '',
+        'secondname' => $customerSession['secondname'] ?? '',
+        'email' => $customerSession['email'] ?? '',
+        'addressone' => $customerSession['addressone'] ?? '',
+        'addresstwo' => $customerSession['addresstwo'] ?? '',
+        'phone' => $customerSession['phone'] ?? '',
+        'phonecountry' => $customerSession['phonecountry'] ?? '',
+        'city' => $customerSession['city'] ?? '',
+        'country' => $customerSession['country'] ?? '',
+    ];
 
     function getCountry($countries, $value): array{
         $remainingCountries = array_filter($countries, function($country) use($value){
@@ -50,7 +39,7 @@
     @include('products.partials.navbar')
     <div class="container-fluid checkout-page" style="position: relative; top: 80px;">
         <div class="row contact-info">
-            <form action="/customer/new" method="post">
+            <form action="/customer/save" method="post">
                 @csrf
                 <div class="row">
                     <div class="col">

@@ -59,20 +59,19 @@ class OrderResource extends Resource
                                 ->disabled()
                                 ->default(random_int(1000000, 9999999))
                                 ->dehydrated()
-                                ->required()
                                 ->unique(ignoreRecord: true),
                             Forms\Components\Select::make('customer_id')
                                 ->label('Customer')
                                 ->options(
                                     Customer::all()->pluck('email', 'id')->toArray()
                                 )
-                                ->searchable()
-                                ->required(),
+                                ->searchable(),
                             Forms\Components\Select::make('status')
                                 ->label('Status')
                                 ->options([
                                     'pending' => OrderStatusEnum::PENDING->value,
                                     'processing' => OrderStatusEnum::PROCESSING->value,
+                                    'delivering' => OrderStatusEnum::DELIVERING->value,
                                     'completed' => OrderStatusEnum::COMPLETED->value,
                                     'declined' => OrderStatusEnum::DECLINED->value,
                                 ])
@@ -83,7 +82,6 @@ class OrderResource extends Resource
                                 ->required(),
                             Forms\Components\MarkdownEditor::make('notes')
                                 ->label('Notes')
-                                ->required()
                                 ->columnSpanFull(),
                         ])->columns(2),
 

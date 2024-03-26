@@ -43,6 +43,7 @@ Route::get('/cart/add/{id}', [CartController::class, 'addToCart']);
 
 Route::get('/customerinfo', [CustomerController::class, 'create']);
 Route::post('/customer/new', [CustomerController::class, 'new']);
+Route::post('/customer/save', [CustomerController::class, 'saveCustomerDetails']);
 Route::get('/checkout', [OrderController::class, 'create']);
 Route::post('/order/new', [OrderController::class, 'new']);
 

@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enums\OrderStatusEnum;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -16,10 +17,11 @@ return new class extends Migration
             $table->foreignId('customer_id')
                     ->constrained('customers')
                     ->cascadeOnDelete();
-            $table->enum('status', ['pending', 'processing', 'completed', 'declined'])
+            $table->enum('status', ['pending', 'processing', 'delivering', 'completed', 'declined'])
                     ->default('pending');
-            $table->integer('amount');
-            $table->longText('notes');
+            $table->decimal('amount', places:2);
+            $table->longText('notes')
+                    ->nullable();
             $table->decimal('shipping_price', places:2);
             $table->softDeletes();
             $table->string('number')->unique();

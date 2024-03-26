@@ -1,4 +1,4 @@
-<footer class="my-3 container text-center text-lg-start bg-light text-muted" style="position: relative; top: 50px;">
+<footer class="my-3 container text-center text-lg-start bg-light text-muted" style="position: relative; top: 100px;">
     <section class="">
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-lg-4 my-5 me-lg-5">

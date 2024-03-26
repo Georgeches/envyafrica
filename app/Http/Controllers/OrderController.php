@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Customer;
+use App\Models\OrderItem;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Mail\OrderReceivedMail;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -22,7 +25,30 @@ class OrderController extends Controller
 
     public function new(){
         $cartDetails = $this->getCartDetails();
-        $customer = session()->get('customer');
+        $customers = Customer::all();
+        //create customer
+        $customerDetails = session()->get('customer');
+        foreach($customers as $customer){
+            if($customer->email === $customerDetails['email']){
+                $customerDetails['id'] = $customer->id;
+                break;
+            }
+        }
+
+        if(!isset($customerDetails['id'])){
+            $customer = [
+                'firstname' => $customerDetails['firstname'],
+                'secondname' => $customerDetails['secondname'],
+                'email' => $customerDetails['email'],
+                'address' => $customerDetails['addressone'].', '.$customerDetails['addresstwo'].', '.$customerDetails['city'],
+                'phone' => $customerDetails['phonecountry'].$customerDetails['phone'],
+                'city' => $customerDetails['city'],
+                'country' => $customerDetails['country'],
+            ];
+            $newCustomer = Customer::create($customer);
+            $customerDetails['id'] = $newCustomer['id'];
+        }
+
         $items = session()->get('cart', []);
         $min = 10000;
         $max = 999999;
@@ -34,7 +60,7 @@ class OrderController extends Controller
             'amount' => $cartDetails['subtotal'],
             'number' => strtoupper($randomString).strval($randomNumber),
             'status' => 'pending',
-            'customer_id' => $customer['id'],
+            'customer_id' => $customerDetails['id'],
         ];
 
         $newOrder = Order::create($order);
@@ -59,8 +85,11 @@ class OrderController extends Controller
                 }
             }
             session()->put('cart', []);
-            Mail::to($customer['email'])
-                ->send(OrderReceivedMail($order));
+
+            $newMail = (new OrderReceivedMail($newOrder, $customerDetails))
+                ->to($customerDetails['email']);
+            Mail::send($newMail);
+            
             return redirect('/')->with('success', 'Order has been sent successfully');
         }
         else{

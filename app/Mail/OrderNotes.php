@@ -2,17 +2,14 @@
 
 namespace App\Mail;
 
-use Carbon\Carbon;
-use App\Models\Order;
-use App\Models\Customer;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
 
-class OrderReceivedMail extends Mailable
+class OrderNotes extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -21,8 +18,7 @@ class OrderReceivedMail extends Mailable
      */
     public $order;
     public $customer;
-
-    public function __construct(Order $order, $customer)
+    public function __construct($order, $customer)
     {
         $this->order = $order;
         $this->customer = $customer;
@@ -34,7 +30,7 @@ class OrderReceivedMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Received',
+            subject: 'Information about your order',
         );
     }
 
@@ -43,15 +39,11 @@ class OrderReceivedMail extends Mailable
      */
     public function content(): Content
     {
-        $date = Carbon::now();
-        $dateFormatted = $date->format('d F Y');
-        
         return new Content(
-            view: 'mails.orderReceived',
+            view: 'mails.orderNotes',
             with: [
                 'order' => $this->order,
-                'customer' => $this->customer,
-                'date' => $dateFormatted
+                'customer' => $this->customer
             ]
         );
     }
