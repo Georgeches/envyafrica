@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Mail\ContactMail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
 
 class CustomerController extends Controller
 {
@@ -68,6 +70,22 @@ class CustomerController extends Controller
             return redirect('/checkout');
         }else{
             return redirect()->back()->with('error', 'Customer info not taken. Please try again');
+        }
+    }
+
+    public function sendContactMail(Request $request){
+        $mailInfo = [
+            'email' => $request->email,
+            'message' => $request->message,
+            'name' => $request->name
+        ];
+
+        $newMail = (new ContactMail($mailInfo))
+                ->to(env('MAIL_FROM_ADDRESS'));
+        $mailSent = Mail::send($newMail);
+        
+        if($mailSent){
+            return redirect('/')->with('success', 'Email sent successfully');
         }
     }
 

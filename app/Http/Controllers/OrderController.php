@@ -9,6 +9,7 @@ use App\Models\OrderItem;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\OrderReceivedMail;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
@@ -26,6 +27,7 @@ class OrderController extends Controller
     public function new(){
         $cartDetails = $this->getCartDetails();
         $customers = Customer::all();
+
         //create customer
         $customerDetails = session()->get('customer');
         foreach($customers as $customer){
@@ -64,7 +66,6 @@ class OrderController extends Controller
         ];
 
         $newOrder = Order::create($order);
-
         if($newOrder){
             foreach($items as $item){
                 $orderItem = [
@@ -89,7 +90,10 @@ class OrderController extends Controller
             $newMail = (new OrderReceivedMail($newOrder, $customerDetails))
                 ->to($customerDetails['email']);
             Mail::send($newMail);
-            
+
+            $paymentController = app()->make(\App\Http\Controllers\PaymentController::class);
+            $paymentController->initiateSTK();
+
             return redirect('/')->with('success', 'Order has been sent successfully');
         }
         else{

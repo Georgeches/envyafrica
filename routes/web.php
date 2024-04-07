@@ -27,7 +27,9 @@ use App\Http\Controllers\CustomerController;
 
 //Products routes
 Route::get('/', [ProductController::class, 'index']);
-Route::get('/initiate', [PaymentController::class, 'initiateSTK']);
+// Route::get('/hash', function(){
+//     dd(bcrypt(''));
+// });
 Route::get('/all', [ProductController::class, 'index2']);
 // Route::get('/adminpage/products/create', [ProductController::class, 'create']);
 // Route::get('/adminpage/products/edit/{id}', [ProductController::class, 'edit']);
@@ -46,8 +48,13 @@ Route::get('/cart/add/{id}', [CartController::class, 'addToCart']);
 Route::get('/customerinfo', [CustomerController::class, 'create']);
 Route::post('/customer/new', [CustomerController::class, 'new']);
 Route::post('/customer/save', [CustomerController::class, 'saveCustomerDetails']);
+Route::post('/sendmail', [CustomerController::class, 'sendContactMail']);
+
 Route::get('/checkout', [OrderController::class, 'create']);
 Route::post('/order/new', [OrderController::class, 'new']);
+
+Route::get('/stk/initiate', [PaymentController::class, 'initiateSTK']);
+Route::get('/stk/callback', [PaymentController::class, 'stkCallback']);
 
 //Admin
 // Route::get('/adminpage', [AdminController::class, 'index']);

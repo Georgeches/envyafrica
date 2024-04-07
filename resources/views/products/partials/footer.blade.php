@@ -16,15 +16,16 @@
             <div class="text-start text-dark col-lg-6 my-5">
             <h2 class="text-center text-dark">Any questions?</h2>
             <p class="lead text-center text-dark">Fill the form to message us</p>
-            <form>
+            <form action="/sendmail" method="post">
+                @csrf
                 <label htmlFor="name" class="form-label">Name</label>
-                <input type="text" spellCheck="false" class="form-control mb-4 border-0 shadow-sm" placeholder="e.g John" id="name"/>
+                <input type="text" spellCheck="false" class="form-control mb-4 border-0 shadow-sm" placeholder="e.g John" id="name" name="name"/>
 
                 <label htmlFor="email" class="form-label">Email</label>
-                <input type="email" spellCheck="false" class="form-control border-0 shadow-sm" placeholder="e.g john@example.com" id="email"/>
+                <input type="email" spellCheck="false" class="form-control border-0 shadow-sm" placeholder="e.g john@example.com" id="email" name="email"/>
 
                 <label htmlFor="message" class="form-label mt-4">Message</label>
-                <textarea style="height: 200px" spellCheck="false" class="form-control border-0 shadow-sm" placeholder="Your message or query" id="name"></textarea>
+                <textarea style="height: 200px" spellCheck="false" class="form-control border-0 shadow-sm" placeholder="Your message or query" id="name" name="message"></textarea>
                 <button class='btn btn-warning mt-3 text-white send-btn'>Send</button>
             </form>
             </div>
