@@ -20,14 +20,12 @@ class PaymentController extends Controller
         $core = new Core(new Client, $config, $cache);
         $stk = new STK($core);
         $description = 'Pay ' . $data['amount'] . ' to EnvyAfrica.';
-        $response = $stk->push(1, $data['phone'], $data['order_number'], $description, 'staging');
+        $response = $stk->push($data['amount'], $data['phone'], $data['order_number'], $description, 'staging');
         dd($response);
 
-        $newPayment = [
-            'status' => PaymentStatusEnum::PENDING,
-            'initiator_id' => $response['initiator_id'],
-        ];
-        Payment::create($newPayment);
+        Payment::create([
+            'initiator_id' => $response->CheckoutRequestID,
+        ]);
     }
 
     /**
@@ -36,7 +34,7 @@ class PaymentController extends Controller
      * @param  Request  $request  The request data.
      * @return array The response data.
      */
-    public static function stkCallback(Request $request): array
+    public static function stkCallback(Request $request): void
     {
         $data = $request->all();
         $data = (object) $data;
@@ -91,7 +89,6 @@ class PaymentController extends Controller
             $payment->status = PaymentStatusEnum::FAILED;
             $payment->save();
         }
-
-        return ['ResultCode' => 0];
+        return;
     }
 }

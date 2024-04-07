@@ -79,6 +79,7 @@
                         <input
                             type="text"
                             class="form-control"
+                            name="mpesaPhone"
                             readOnly
                             value={{$customer['phonecountry']}}
                         />

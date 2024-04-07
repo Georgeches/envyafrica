@@ -24,7 +24,7 @@ class OrderController extends Controller
         ]);
     }
 
-    public function new(){
+    public function new(Request $request){
         $cartDetails = $this->getCartDetails();
         $customers = Customer::all();
 
@@ -91,8 +91,14 @@ class OrderController extends Controller
                 ->to($customerDetails['email']);
             Mail::send($newMail);
 
+            $paymentData = [
+                'amount' => $newOrder->amount,
+                'phone' => $request->mpesaPhone,
+                'order_number' => $newOrder->number
+            ];
+
             $paymentController = app()->make(\App\Http\Controllers\PaymentController::class);
-            $paymentController->initiateSTK();
+            $paymentController->initiateSTK($paymentData);
 
             return redirect('/')->with('success', 'Order has been sent successfully');
         }
