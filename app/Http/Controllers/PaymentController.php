@@ -23,7 +23,7 @@ class PaymentController extends Controller
 
         $description = 'Pay ' . $data['amount'] . ' to EnvyAfrica.';
         // $response = $stk->push(1, '254'.substr($data['phone']), $data['order_number'], $description, 'staging');
-        $str_rand = rand(2224, 99999);
+        $str_rand = rand(2224, 99999); //replace this with order id in this instance
         $expressResponse = STK::push($data['amount'], '254'.substr($data['phone'], -9), $str_rand, $description);
 
         $responseData = (array) $expressResponse;
