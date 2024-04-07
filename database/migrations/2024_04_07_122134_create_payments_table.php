@@ -19,8 +19,11 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->decimal('amount', places: 2);
             $table->string('phone');
-            $table->enum('status', ['pending', 'success', 'failed'])
+            $table->enum('status', ['pending', 'success', 'failed','cancelled','refunded'])
                     ->default('pending');
+            $table->string('transaction_mpesa_receipt')->nullable();
+            $table->string('transaction_date')->default(\Illuminate\Support\Carbon::now()->timezone(env('TIMEZONE'))->format('d/m/Y'));
+            $table->string('transaction_time')->default(\Illuminate\Support\Carbon::now()->timezone(env('TIMEZONE'))->format('g:i A'));
             $table->timestamps();
         });
     }
