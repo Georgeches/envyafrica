@@ -27,13 +27,22 @@ class ProductController extends Controller
 
     public function show($id){
         $product = Product::findOrFail($id);
+        $products = Product::latest()->get();
         $productImages = ProductImage::where('product_id', 'like', $id)->get();
         $category = Category::where('id', 'like', $product['category_id'])->get();
+
+        $remainingProducts = [];
+        foreach($products as $i){
+            if($i['id'] !== $product['id']){
+                $remainingProducts[]=$i;
+            }
+        }
         return view('products.show', [
             'product' => $product,
             'product_images' => $productImages,
             'category' => $category,
-            'products' => Product::latest()->get(),
+            'products' => $products,
+            'remainingProducts' => $remainingProducts,
             'cart' => session()->get('cart', []),
         ]);
     }

@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CookieController;
-use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CookieController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ use App\Http\Controllers\ProductController;
 
 //Products routes
 Route::get('/', [ProductController::class, 'index']);
+Route::get('/initiate', [PaymentController::class, 'initiateSTK']);
 Route::get('/all', [ProductController::class, 'index2']);
 // Route::get('/adminpage/products/create', [ProductController::class, 'create']);
 // Route::get('/adminpage/products/edit/{id}', [ProductController::class, 'edit']);

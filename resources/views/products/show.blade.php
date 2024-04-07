@@ -57,10 +57,10 @@
     </div>
 
     <div class="container similar">
-        <h4>Similar</h4>
+        <h4>Other Products</h4>
         <div class="d-flex align-items-center gap-1" style="overflow-x: scroll">
             @php $count = 0 @endphp
-            @foreach ($products as $p)
+            @foreach ($remainingProducts as $p)
                 @if ($count < 6)
                     <x-productSmall :product="$p"/>
                     @php $count++ @endphp
