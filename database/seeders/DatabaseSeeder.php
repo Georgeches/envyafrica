@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'name'=>'George Chesire',
-            'password'=>'$2y$12$uiCzOsQ8yrqH3xc8YTyN8./g55FdjdPqxVgYvwxzrRlWhRMqtIvHS',
-            'email'=>'chesire608@gmail.com'
+            'name'=>'Admin User',
+            'password'=>'$2y$12$uiCzOsQ8yrqH3xc8YTyN8./g55FdjdPqxVgYvwxzrRlWhRMqtIvHS', //pass1234
+            'email'=>'admin@email.com'
         ]);
     }
 }
