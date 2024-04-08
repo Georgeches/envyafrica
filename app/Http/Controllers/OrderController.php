@@ -117,8 +117,8 @@ class OrderController extends Controller
         return [
             'subtotal' => $subtotal,
             'tax' => 0.16*$subtotal,
-            'total' => $subtotal + 0.16*$subtotal + 500,
-            'shipping' => 500,
+            'total' => $subtotal + 0.16*$subtotal + 300,
+            'shipping' => 300,
         ];
     }
 }

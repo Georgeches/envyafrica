@@ -23,7 +23,7 @@ class CustomerController extends Controller
             'addressone' => 'required',
             'addresstwo' => 'required',
             'phonecountry' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|min:9|max:9',
             'city' => 'required',
             'country' => 'required',
         ]);
@@ -47,7 +47,7 @@ class CustomerController extends Controller
             'addressone' => 'required',
             'addresstwo' => 'required',
             'phonecountry' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|min:9|max:9',
             'city' => 'required',
             'country' => 'required',
         ]);

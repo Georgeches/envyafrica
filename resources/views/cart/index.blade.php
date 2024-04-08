@@ -2,63 +2,88 @@
 
 @php
     $customer = session()->get('customer');
-    $cartItems = session('cart');             
+    $link = '';
+    if(isset($customer)){
+        $link='/checkout';
+    }
+    else{
+        $link='/customerinfo';
+    }
+
+    $cartItems = session('cart');
+    
+    function getImage($item){
+        $image = $item['image'];
+        return asset("storage/$image");
+    }
 @endphp
 
 @section('content')
     @include('products.partials.navbar')
     <div class="container border p-4 cart-page" style="position: relative; top: 150px;">
-        <div class="row">
-            <div class="col-12 col-md-6 col-lg-6" style="height: 100%; overflow-y: scroll;">
-                <h4 class="mb-4">Cart</h4>
-                @if (session('cart'))
-                    @foreach (session('cart') as $item)
-                        <div class="cart-item w-100 mb-3 border py-3 px-3">
-                            <div class="w-100 mb-2 d-flex justify-content-between flex-wrap">
-                                <div class="cart-image" style="width: 100px;">
-                                    <img src={{ asset("storage/$item->image") }} class="w-100" alt="">
+        <div class="card cart-card">
+            <div class="row">
+                <div class="col-md-8 col-cart">
+                    <div class="title">
+                        <div class="row">
+                            <div class="col"><h4><b>Shopping Cart</b></h4></div>
+                            <div class="col align-self-center text-right text-muted">{{count($cartItems)}} Item(s)</div>
+                        </div>
+                    </div>
+
+                    @if (count($cartItems) === 0)
+                        <p class="lead">No items in cart</p>
+                        <a class="btn checkout-btn m-0" href="/all" style="font-size: 16px">Start Shopping</a>
+                    @endif
+                    
+                    @foreach ($cartItems as $item)
+                        <div class="row border-top">
+                            <div class="row main align-items-center">
+                                <div class="col-2"><img class="img-fluid" src='{{ getImage($item) }}'></div>
+                                <div class="col">
+                                    <div class="row text-muted">{{$item['name']}}</div>
+                                    <div class="row">{{$item['price']}}</div>
                                 </div>
-                                <div class="item-info w-100 px-1 pt-3 d-flex justify-content-between flex-wrap">
-                                    <div class="me-4">
-                                        <h4>{{$item->name}}</h4>
-                                        <p class="">Remaining: <span class="text-warning">{{$item->quantity}}</span></p>
-                                    </div>
-                                    <h6>Ksh {{$item->price}}</h6>
+                                <div class="col">
+                                    <a href="/cart/decrement/{{$item['id']}}">-</a><a href="#" class="border">{{$item['amount']}}</a><a href="/cart/increment/{{$item['id']}}">+</a>
                                 </div>
-                            </div>
-                            <div class="w-100 d-flex justify-content-between">
-                                <form action="/cart/delete/{{$item->id}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-outline-danger"><i class="bi bi-trash-fill"></i></button>
-                                </form>
-                                <div class="d-flex align-items-center">
-                                    <a href="/cart/increment/{{$item->id}}" class="btn btn-warning text-white">+</a>
-                                    <p class="mb-0 mt-0 mx-3">{{$item->amount}}</p>
-                                    <a href="/cart/decrement/{{$item->id}}" class="btn btn-warning text-white">-</a>
+                                <div class="col d-flex align-items-center">&euro; {{$item['amount'] * $item['price']}}
+                                    <form action="/cart/delete/{{$item['id']}}" method="POST" class="ms-3">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="close">&#10005;</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     @endforeach
+                    <div class="back-to-shop"><a href="#">&leftarrow;</a><a href="/all" class="text-muted">Back to shop</a></div>
+                </div>
+                @if (count($cartItems) > 0)
+                <div class="col-md-4 summary">
+                    <div><h5><b>Summary</b></h5></div>
+                    <hr>
+                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="col">TOTAL PRICE</div>
+                        <div class="col text-right">Ksh. {{$subtotal}}</div>
+                    </div>
+                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="col">SHIPPING</div>
+                        <div class="col text-right">Ksh. 300</div>
+                    </div>
+                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="col">TAX</div>
+                        <div class="col text-right">Ksh. {{$tax}}</div>
+                    </div>
+                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="col"><u>TOTAL</u></div>
+                        <div class="col text-right">Ksh. {{$total}}</div>
+                    </div>
+                    
+                    <a href={{$link}} class="btn checkout-btn">CHECKOUT</a>
+                </div>
                 @endif
-            </div>
-            <div class="col-12 col-md-6 col-lg-6">
-                <h4>Summary</h4>
-                <h6>Subtotal: Ksh {{$total}}</h6>
-                <h6>Tax: Ksh {{$tax}}</h6>
-                <h6>Total: Ksh {{$total + $tax}}</h6>
-                
-                @if (isset($customer) && count($cartItems)>0)
-                    <a href="/checkout" class="btn btn-warning mt-2 text-white">Checkout</a>
-                @endif
-                @if(!isset($customer) && count($cartItems)>0)
-                    <a href="/customerinfo" class="btn btn-warning mt-2 text-white">Checkout</a>
-                @endif
-                @if(count($cartItems) === 0)
-                    <p class="mt-5 text-danger" style="font-size: 13px">You have not yet added any item to cart</p>
-                    <a href="/all" class="btn btn-sm" style="background-color: #eba805; color: white">Start shopping</a>
-                @endif
-            </div>
+            </div> 
         </div>
     </div>
 @endsection

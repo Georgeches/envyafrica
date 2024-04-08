@@ -6,7 +6,7 @@
     }
 @endphp
 
-<div class="container-fluid p-0 large-nav w-100">
+<div class="container-fluid p-0 large-nav w-100 border">
     <div class="navbar px-5 fixed-top navbar-expand-lg navbar-light">
         <a href="/"><p class="brand">EnvyAfrica</p></a>
 
@@ -35,6 +35,7 @@
     </div>
     <div class="nav2">
         <ul class="d-flex mt-2 justify-content-center align-items-center gap-5 text-dark">
+            <li class="nav2-item fw-bold"><p><a href="/all">Shop</a></p></li>
             <li class="nav2-item"><p>Lace front wigs</p></li>
             <li class="nav2-item"><p>Combination Wigs</p></li>
             <li class="nav2-item"><p>Synthetic Hair</p></li>

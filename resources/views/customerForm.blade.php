@@ -37,7 +37,7 @@
 
 @section('content')
     @include('products.partials.navbar')
-    <div class="container-fluid checkout-page" style="position: relative; top: 80px;">
+    <div class="container-fluid checkout-page" style="position: relative; top: 120px;">
         <div class="row contact-info">
             <form action="/customer/save" method="post">
                 @csrf
