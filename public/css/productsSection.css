@@ -20,7 +20,7 @@
 .style-card{
     min-width: 260px;
     max-width: 260px;
-    height: fit-content;
+    height: 400px;
     margin-right: 10px;
     margin-bottom: 20px;
 }
@@ -41,12 +41,12 @@
 
 .card-body-image{
     overflow: hidden;
-    height: 75%;
+    height: 300px;
 }
 
 .card-body-image img{
-    width: 100%;
-    height: auto !important;
+    height: 100%;
+    width: auto !important;
     margin-top: 20px;
     mix-blend-mode:multiply;
 }
@@ -54,6 +54,7 @@
 .product-details{
     width: 85%;
     margin-top: 7px;
+    height: 100px;
 }
 
 .ready-row{

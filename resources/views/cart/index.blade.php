@@ -47,7 +47,7 @@
                                 <div class="col">
                                     <a href="/cart/decrement/{{$item['id']}}">-</a><a href="#" class="border">{{$item['amount']}}</a><a href="/cart/increment/{{$item['id']}}">+</a>
                                 </div>
-                                <div class="col d-flex align-items-center">&euro; {{$item['amount'] * $item['price']}}
+                                <div class="col d-flex align-items-center">Ksh. {{$item['amount'] * $item['price']}}
                                     <form action="/cart/delete/{{$item['id']}}" method="POST" class="ms-3">
                                         @csrf
                                         @method('DELETE')

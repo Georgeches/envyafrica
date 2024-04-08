@@ -27,6 +27,9 @@ class OrderController extends Controller
     public function new(Request $request){
         $cartDetails = $this->getCartDetails();
         $customers = Customer::all();
+        $mpesaPhone = $request->validate([
+            'phone'=>'required|min:10|max:10',
+        ]);
 
         //create customer
         $customerDetails = session()->get('customer');
@@ -93,8 +96,9 @@ class OrderController extends Controller
 
             $paymentData = [
                 'amount' => $newOrder->amount,
-                'phone' => $request->mpesaPhone,
-                'order_number' => $newOrder->number
+                'phone' => $mpesaPhone['phone'],
+                'order_number' => $newOrder->number,
+                'order_id' => $newOrder->id
             ];
 
             $paymentController = app()->make(\App\Http\Controllers\PaymentController::class);

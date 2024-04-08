@@ -2,51 +2,64 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\PaymentStatusEnum;
-use App\Models\Payment;
+use Carbon\Carbon;
+use App\Models\Order;
 use GuzzleHttp\Client;
 // use SmoDav\Mpesa\C2B\STK;
-use Illuminate\Http\Request;
+use App\Models\Payment;
 // use SmoDav\Mpesa\Engine\Core;
 // use SmoDav\Mpesa\Native\NativeCache;
 // use SmoDav\Mpesa\Native\NativeConfig;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use App\Enums\PaymentStatusEnum;
 use SmoDav\Mpesa\Laravel\Facades\STK;
+use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
 {
     public function initiateSTK($data){
-        // $config = new NativeConfig();
-        // $cache = new NativeCache($config->get('cache_location'));
-        // $core = new Core(new Client, $config, $cache);
-        // $stk = new STK($core);
-
+        $order = Order::find($data['order_id']);
         $description = 'Pay ' . $data['amount'] . ' to EnvyAfrica.';
+        $phone = '254'.substr($data['phone'], -9);
 
-        // $response = $stk->push(1, '254'.substr($data['phone']), $data['order_number'], $description, 'staging');
-        $str_rand = rand(2224, 99999); //replace this with order id in this instance
-        $expressResponse = STK::push($data['amount'], '254'.substr($data['phone'], -9), $str_rand, $description);
-
+        $expressResponse = STK::push($data['amount'], $phone, $data['order_number'], $description);
         $responseData = (array) $expressResponse;
-
         $tdate = Carbon::now()->timezone(env('TIMEZONE'))->format('d/m/Y');
         $ttime = Carbon::now()->timezone(env('TIMEZONE'))->format('g:i A');
         $tdatetime = $tdate.' '.$ttime;
-        if ($responseData['ResponseCode'] === '0') {
-        $newPayment = [
-            'status' => PaymentStatusEnum::PENDING,
-            'checkout_request_id' => $response['CheckoutRequestID'],
-            'transaction_ref_id' => $responseData['MerchantRequestID'],
-            'transaction_data' => json_encode($responseData),
-            'transaction_date_time' => $tdatetime,
-            'transaction_date' => $tdate,
-            'transaction_time' => $ttime,
-        ];
-        $payment = Payment::create($newPayment);
-        return $payment;    
+
+        if (isset($responseData['ResponseCode'])) {
+            $newPayment = [
+                'status' => PaymentStatusEnum::PENDING,
+                'phone' => $phone,
+                'order_id' => $order->id,
+                'amount' => $order->amount,
+                'transaction_code' => $responseData['CheckoutRequestID'],
+                'merchant_request_id' => $responseData['MerchantRequestID'],
+                'transaction_data' => json_encode($responseData),
+                'transaction_date_time' => $tdatetime,
+                'transaction_date' => $tdate,
+                'transaction_time' => $ttime,
+            ];
+            $payment = Payment::create($newPayment);
+
+            if($order){
+                $order->payment_id=$payment->id;
+                $order->save();
+            }
         }else
         {
-            //failed to initiate stk
+            $payment = Payment::create([
+                'status' => PaymentStatusEnum::FAILED,
+                'phone' => $phone,
+                'order_id' => $order->id,
+                'amount' => $order->amount,
+            ]);
+            if($order){
+                $order->payment_id=$payment->id;
+                $order->save();
+            }
+            return redirect('/')->with('error', 'An error occurred. Could not pay using mpesa.');
         }
     }
 

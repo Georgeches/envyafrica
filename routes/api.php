@@ -28,5 +28,5 @@ Route::get('/users', [ApiController::class, 'getUsers']);
 Route::get('/orders/{id}', [ApiController::class, 'getOrder']);
 Route::get('/customers/{id}', [ApiController::class, 'getCustomer']);
 Route::get('/products/{id}', [ApiController::class, 'getProduct']);
-Route::get('/categories/{id}', [ApiController::class, 'getCategorie']);
+Route::get('/categories/{id}', [ApiController::class, 'getCategory']);
 Route::get('/users/{id}', [ApiController::class, 'getUser']);

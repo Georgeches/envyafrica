@@ -23,7 +23,7 @@ class OrderItemResource extends Resource
 
     protected static ?string $navigationGroup = 'Shop';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {

@@ -25,6 +25,10 @@ return new class extends Migration
             $table->decimal('shipping_price', places:2);
             $table->softDeletes();
             $table->string('number')->unique();
+            $table->foreignId('payment_id')
+                ->nullable()
+                ->constrained('payments')
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }
