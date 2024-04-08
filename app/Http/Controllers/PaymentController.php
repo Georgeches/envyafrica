@@ -22,6 +22,7 @@ class PaymentController extends Controller
         // $stk = new STK($core);
 
         $description = 'Pay ' . $data['amount'] . ' to EnvyAfrica.';
+
         // $response = $stk->push(1, '254'.substr($data['phone']), $data['order_number'], $description, 'staging');
         $str_rand = rand(2224, 99999); //replace this with order id in this instance
         $expressResponse = STK::push($data['amount'], '254'.substr($data['phone'], -9), $str_rand, $description);
@@ -55,7 +56,7 @@ class PaymentController extends Controller
      * @param  Request  $request  The request data.
      * @return array The response data.
      */
-    public static function stkCallback(Request $request): array
+    public static function stkCallback(Request $request): void
     {
         $data = $request->all();
         $data = (object) $data;
@@ -110,7 +111,6 @@ class PaymentController extends Controller
             $payment->status = PaymentStatusEnum::FAILED;
             $payment->save();
         }
-
-        return ['ResultCode' => 0];
+        return;
     }
 }

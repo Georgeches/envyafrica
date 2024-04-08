@@ -12,8 +12,9 @@ class CartController extends Controller
     public function index(){
         $details = $this->getDetails();
         return view('cart.index', [
-            'total'=>$details['total'],
-            'tax'=>$details['tax'],
+            'subtotal' => $details['subtotal'],
+            'total' => $details['total'],
+            'tax' => $details['tax'],
         ]);
     }
 
@@ -92,7 +93,7 @@ class CartController extends Controller
         return [
             'subtotal' => $subtotal,
             'tax' => 0.16*$subtotal,
-            'total' => $subtotal + 0.16*$subtotal
+            'total' => $subtotal + 0.16*$subtotal + 300
         ];
     }
 }
