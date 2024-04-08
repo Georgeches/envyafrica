@@ -5,27 +5,49 @@ namespace App\Http\Controllers;
 use App\Enums\PaymentStatusEnum;
 use App\Models\Payment;
 use GuzzleHttp\Client;
-use SmoDav\Mpesa\C2B\STK;
+// use SmoDav\Mpesa\C2B\STK;
 use Illuminate\Http\Request;
-use SmoDav\Mpesa\Engine\Core;
-use SmoDav\Mpesa\Native\NativeCache;
-use SmoDav\Mpesa\Native\NativeConfig;
+// use SmoDav\Mpesa\Engine\Core;
+// use SmoDav\Mpesa\Native\NativeCache;
+// use SmoDav\Mpesa\Native\NativeConfig;
 use Illuminate\Support\Facades\Storage;
+use SmoDav\Mpesa\Laravel\Facades\STK;
 
 class PaymentController extends Controller
 {
     public function initiateSTK($data){
-        $config = new NativeConfig();
-        $cache = new NativeCache($config->get('cache_location'));
-        $core = new Core(new Client, $config, $cache);
-        $stk = new STK($core);
-        $description = 'Pay ' . $data['amount'] . ' to EnvyAfrica.';
-        $response = $stk->push($data['amount'], $data['phone'], $data['order_number'], $description, 'staging');
-        dd($response);
+        // $config = new NativeConfig();
+        // $cache = new NativeCache($config->get('cache_location'));
+        // $core = new Core(new Client, $config, $cache);
+        // $stk = new STK($core);
 
-        Payment::create([
-            'initiator_id' => $response->CheckoutRequestID,
-        ]);
+        $description = 'Pay ' . $data['amount'] . ' to EnvyAfrica.';
+
+        // $response = $stk->push(1, '254'.substr($data['phone']), $data['order_number'], $description, 'staging');
+        $str_rand = rand(2224, 99999); //replace this with order id in this instance
+        $expressResponse = STK::push($data['amount'], '254'.substr($data['phone'], -9), $str_rand, $description);
+
+        $responseData = (array) $expressResponse;
+
+        $tdate = Carbon::now()->timezone(env('TIMEZONE'))->format('d/m/Y');
+        $ttime = Carbon::now()->timezone(env('TIMEZONE'))->format('g:i A');
+        $tdatetime = $tdate.' '.$ttime;
+        if ($responseData['ResponseCode'] === '0') {
+        $newPayment = [
+            'status' => PaymentStatusEnum::PENDING,
+            'checkout_request_id' => $response['CheckoutRequestID'],
+            'transaction_ref_id' => $responseData['MerchantRequestID'],
+            'transaction_data' => json_encode($responseData),
+            'transaction_date_time' => $tdatetime,
+            'transaction_date' => $tdate,
+            'transaction_time' => $ttime,
+        ];
+        $payment = Payment::create($newPayment);
+        return $payment;    
+        }else
+        {
+            //failed to initiate stk
+        }
     }
 
     /**
