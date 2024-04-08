@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('transaction_code');
+            $table->string('transaction_code')->nullable();
             $table->foreignId('order_id')
                 ->constrained('orders')
                 ->cascadeOnDelete();
@@ -21,9 +21,11 @@ return new class extends Migration
             $table->string('phone');
             $table->enum('status', ['pending', 'success', 'failed','cancelled','refunded'])
                     ->default('pending');
-            $table->string('transaction_mpesa_receipt')->nullable();
+            $table->string('merchant_request_id')->nullable();
+            $table->string('transaction_data')->nullable();
             $table->string('transaction_date')->default(\Illuminate\Support\Carbon::now()->timezone(env('TIMEZONE'))->format('d/m/Y'));
             $table->string('transaction_time')->default(\Illuminate\Support\Carbon::now()->timezone(env('TIMEZONE'))->format('g:i A'));
+            $table->string('transaction_date_time')->nullable();
             $table->timestamps();
         });
     }

@@ -133,6 +133,9 @@ class OrderResource extends Resource
                     ->toggleable()
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('payment.status')
+                    ->label('Payment status')
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('customer.phone')
                     ->label('Customer phone')
                     ->toggleable(),

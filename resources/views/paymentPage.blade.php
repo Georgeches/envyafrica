@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <div class='mpesa-form row justify-content-center mt-5' x-show="mpesaOpen">
+        <div class='mpesa-form row justify-content-center' x-show="mpesaOpen">
             <div class='col-12 col-lg-6'>
                 <form action="/order/new" method="POST">
                     @csrf
@@ -71,12 +71,15 @@
                         autoComplete="off"
                         type="number"
                         id="phone"
-                        maxLength="9"
+                        name="phone"
                         placeholder="0712345678"
                         class="form-control"
                         required
                     />
-                <button type="submit" class="btn purchase mb-4">Continue to purchase</button>
+                    @error('phone')
+                        <p class="text-danger w-100">{{$message}}</p>
+                    @enderror
+                    <button type="submit" class="btn purchase mb-4">Continue to purchase</button>
                 </form>
             </div>
         </div>
