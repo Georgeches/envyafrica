@@ -51,7 +51,7 @@ return [
                 'paybill' => 174379,
                 'shortcode' => 174379,
                 'passkey' => 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919',
-                'callback' => env('APP_URL').'/stk/callback',
+                'callback' => 'https://example.com/callback?secret=some_secret_hash_key',
             ]
         ],
 

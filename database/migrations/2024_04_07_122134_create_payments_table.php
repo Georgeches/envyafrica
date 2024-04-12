@@ -22,7 +22,10 @@ return new class extends Migration
             $table->enum('status', ['pending', 'success', 'failed','cancelled','refunded'])
                     ->default('pending');
             $table->string('merchant_request_id')->nullable();
-            $table->string('transaction_data')->nullable();
+            $table->string('checkout_request_id')->nullable();
+            $table->string('result_code')->nullable();
+            $table->string('result_description')->nullable();
+            $table->longText('transaction_data')->nullable();
             $table->string('transaction_date')->default(\Illuminate\Support\Carbon::now()->timezone(env('TIMEZONE'))->format('d/m/Y'));
             $table->string('transaction_time')->default(\Illuminate\Support\Carbon::now()->timezone(env('TIMEZONE'))->format('g:i A'));
             $table->string('transaction_date_time')->nullable();

@@ -80,9 +80,11 @@ class OrderController extends Controller
 
                 $newOrderItem = OrderItem::create($orderItem);
                 if($newOrderItem){
-                    $product = Product::findOrFail($item['id']);
-                    $product->quantity -= $item['amount'];
-                    $product->save();
+                    $product = Product::find($item['id']);
+                    if($product){
+                        $product->quantity -= $item['amount'];
+                        $product->save();
+                    }
                 }
                 else{
                     return redirect()->back()->with('error', 'Something went wrong. Please try again later.');
@@ -95,7 +97,7 @@ class OrderController extends Controller
             Mail::send($newMail);
 
             $paymentData = [
-                'amount' => $newOrder->amount,
+                'amount' => $cartDetails['total'],
                 'phone' => $mpesaPhone['phone'],
                 'order_number' => $newOrder->number,
                 'order_id' => $newOrder->id

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
@@ -11,6 +12,8 @@ class ProductController extends Controller
 {
     public function index(){
         $customer_id = [CustomerController::class, 'activeCustomer'];
+        // $payment = Payment::first();
+        // dd($payment);
         return view('products.index', [
             'products' => Product::latest()->filter(request(['category', 'minprice', 'maxprice', 'sort', 'search']))->get(),
         ]);

@@ -80,6 +80,8 @@ class PaymentResource extends Resource
                                     ->label('Transaction Code'),
                                 Forms\Components\TextInput::make('merchant_request_id')
                                     ->label('Merchant Request ID'),
+                                Forms\Components\TextInput::make('checkout_request_id')
+                                    ->label('Checkout Request ID'),
                                 Forms\Components\TextInput::make('transaction_date')
                                     ->label('Transaction Date'),
                                 Forms\Components\TextInput::make('transaction_time')
@@ -99,6 +101,10 @@ class PaymentResource extends Resource
                     ->label('Transaction code')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('checkout_request_id')
+                    ->label('Checkout Request ID')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('merchant_request_id')
                     ->label('Merchant Request ID')
                     ->searchable()
@@ -115,7 +121,7 @@ class PaymentResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->label('Transaction code')
+                    ->label('status')
                     ->searchable()
                     ->sortable(),
             ])
