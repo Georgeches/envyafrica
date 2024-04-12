@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,9 @@ use App\Http\Controllers\ApiController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/stk/initiate', [PaymentController::class, 'initiateSTK']);
+Route::post('/stk/callback', [PaymentController::class, 'stkCallback']);
 
 Route::get('/orders', [ApiController::class, 'getOrders']);
 Route::get('/customers', [ApiController::class, 'getCustomers']);
