@@ -12,10 +12,8 @@ class ProductController extends Controller
 {
     public function index(){
         $customer_id = [CustomerController::class, 'activeCustomer'];
-        // $payment = Payment::first();
-        // dd($payment);
         return view('products.index', [
-            'products' => Product::latest()->filter(request(['category', 'minprice', 'maxprice', 'sort', 'search']))->get(),
+            'products' => Product::where('quantity', '>', 0)->filter(request(['category', 'minprice', 'maxprice', 'sort', 'search']))->get(),
         ]);
     }
 
@@ -23,14 +21,14 @@ class ProductController extends Controller
         $categories = ['shoes', 'hoodies', 't-shirt', 'pants', 'shorts'];
 
         return view('products.productsPage',[
-            'products' => Product::latest()->filter(request(['category', 'minprice', 'maxprice', 'sort', 'search']))->get(),
+            'products' => Product::where('quantity', '>', 0)->filter(request(['category', 'minprice', 'maxprice', 'sort', 'search']))->get(),
             'categories' => Category::all()
         ]);
     }
 
     public function show($id){
         $product = Product::findOrFail($id);
-        $products = Product::latest()->get();
+        $products = Product::where('quantity', '>', 0)->get();
         $productImages = ProductImage::where('product_id', 'like', $id)->get();
         $category = Category::where('id', 'like', $product['category_id'])->get();
 

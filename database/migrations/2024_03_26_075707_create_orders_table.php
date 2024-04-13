@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('customer_id')
                     ->constrained('customers')
                     ->cascadeOnDelete();
-            $table->enum('status', ['pending', 'processing', 'delivering', 'completed', 'declined'])
+            $table->enum('status', ['pending', 'processing', 'dispatched', 'completed', 'declined'])
                     ->default('pending');
             $table->decimal('amount', places:2);
             $table->longText('notes')

@@ -71,7 +71,7 @@ class OrderResource extends Resource
                                 ->options([
                                     'pending' => OrderStatusEnum::PENDING->value,
                                     'processing' => OrderStatusEnum::PROCESSING->value,
-                                    'delivering' => OrderStatusEnum::DELIVERING->value,
+                                    'dispatched' => OrderStatusEnum::DISPATCHED->value,
                                     'completed' => OrderStatusEnum::COMPLETED->value,
                                     'declined' => OrderStatusEnum::DECLINED->value,
                                 ])
