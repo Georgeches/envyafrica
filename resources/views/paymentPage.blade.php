@@ -64,6 +64,7 @@
             <div class='col-12 col-lg-6'>
                 <form action="/order/new" method="POST">
                     @csrf
+                    <h5 class="mb-3 text-success">Lipa na Mpesa</h5>
                     <label for="first-name" class="fw-bold form-label">
                             Mobile number
                     </label>
