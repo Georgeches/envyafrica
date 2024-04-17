@@ -12,18 +12,19 @@
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/designsSection.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/productsSection.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/productsPage.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/cartOffcanvas.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/productDetail.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/xform.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/checkout.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/payment.css') }}">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/carousel.css">
+    <link rel="stylesheet" href="/css/designsSection.css">
+    <link rel="stylesheet" href="/css/productsSection.css">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/productsPage.css">
+    <link rel="stylesheet" href="/css/cartOffcanvas.css">
+    <link rel="stylesheet" href="/css/productDetail.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/xform.css">
+    <link rel="stylesheet" href="/css/checkout.css">
+    <link rel="stylesheet" href="/css/payment.css">
+
     <script src="https://unpkg.com/alpinejs" defer></script>
     <script src="{{asset('js/custom.js')}}"></script>
     <title>Laras</title>
