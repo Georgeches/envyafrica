@@ -14,7 +14,8 @@
     
     function getImage($item){
         $image = $item['image'];
-        return asset("storage/$image");
+        $imageLink = "/storage" . "/" . $image;
+        return ;
     }
 @endphp
 

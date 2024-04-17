@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="/css/payment.css">
 
     <script src="https://unpkg.com/alpinejs" defer></script>
-    <script src="{{asset('js/custom.js')}}"></script>
+    <script src='/js/custom.js'></script>
     <title>Laras</title>
   </head>
   <body>
