@@ -21,7 +21,7 @@
     font-size: 25px;
 }
 
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 1800px){
     .carousel{
         height: fit-content;
         position: relative;
