@@ -3,18 +3,21 @@
 namespace App\Filament\Resources\OrderResource\Pages;
 
 use Filament\Actions;
+use App\Models\Product;
 use App\Mail\OrderNotes;
 use App\Models\Customer;
+use App\Models\OrderItem;
 use App\Enums\OrderStatusEnum;
 use App\Mail\OrderStatusDelivered;
 use App\Mail\OrderStatusDelivering;
 use App\Mail\OrderStatusProcessing;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\OrderResource;
-use App\Models\OrderItem;
-use App\Models\Product;
+
+use function Laravel\Prompts\error;
 
 class EditOrder extends EditRecord
 {
@@ -46,19 +49,6 @@ class EditOrder extends EditRecord
             $this->sendSMS(OrderStatusEnum::DISPATCHED);
         }
         if($previousStatus !== $data['status'] && $data['status'] === 'completed'){
-            $order_items = OrderItem::all()->toArray();
-            $items = array_filter($order_items, function($item){
-                return $item['order_id'] == $this->record->id;
-            });
-            foreach($items as $item){
-                $product = Product::find($item['product_id']);
-                if($product){
-                    if($product->quantity <= 0){
-                        $product->delete();
-                    }
-                }
-            }
-
             $newMail = (new OrderStatusDelivered($data, $customer))
                 ->to($customer['email']);
             Mail::send($newMail);
@@ -90,6 +80,12 @@ class EditOrder extends EditRecord
             'mobile' => env('SMS_MOBILE')
         ]);
 
-        dd($response);
+        if(!$response->successful()){
+            Notification::make() 
+            ->title('SMS not send')
+            ->body("Please make sure the API key, short code and Partner ID are correct")
+            ->danger()
+            ->send();
+        }
     }
 }
