@@ -169,6 +169,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Knox\Pesapal\PesapalServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -183,6 +184,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Pesapal' => Knox\Pesapal\Facades\Pesapal::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 

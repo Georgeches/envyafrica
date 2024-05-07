@@ -27,7 +27,7 @@
 
     <script src="https://unpkg.com/alpinejs" defer></script>
     <script src='/js/custom.js'></script>
-    <title>Laras</title>
+    <title>EnvyAfrica</title>
   </head>
   <body>
     @if (session('success'))
