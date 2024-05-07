@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1fe7b0b514aaed112da5a8377b0be5b4",
+    "content-hash": "21c39b880a6982dd4d1549b8f9df9c96",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -2127,6 +2127,73 @@
                 "source": "https://github.com/kirschbaum-development/eloquent-power-joins/tree/3.3.3"
             },
             "time": "2023-10-31T18:01:18+00:00"
+        },
+        {
+            "name": "knox/pesapal",
+            "version": "v1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/knox2/Pesapal.git",
+                "reference": "45aba8a62d56a6878620764feea6e3231c4f89fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/knox2/Pesapal/zipball/45aba8a62d56a6878620764feea6e3231c4f89fa",
+                "reference": "45aba8a62d56a6878620764feea6e3231c4f89fa",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.5|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "php": ">=7|^8.0|^8.1|^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Knox\\Pesapal\\PesapalServiceProvider"
+                    ],
+                    "aliases": {
+                        "Pesapal": "Knox\\Pesapal\\Facades\\Pesapal"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Knox\\Pesapal\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Timothy Radier",
+                    "email": "timothyradier@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A laravel package that integrates into the pesapal api",
+            "homepage": "https://github.com/knox2/pesapal",
+            "keywords": [
+                "Orange Money",
+                "laravel",
+                "laravel 5",
+                "laravel 6",
+                "laravel 7",
+                "laravel 8",
+                "laravel 9",
+                "mastercard",
+                "mpesa",
+                "payments",
+                "pesapal",
+                "visa"
+            ],
+            "support": {
+                "issues": "https://github.com/knox2/Pesapal/issues",
+                "source": "https://github.com/knox2/Pesapal/tree/v1.5.0"
+            },
+            "time": "2023-02-23T09:57:07+00:00"
         },
         {
             "name": "laravel/framework",

@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -33,7 +33,8 @@ class Product extends Model
                 ->orWhere('brand', 'like', '%' . $filters['search'] .'%');
         }
         if(isset($filters['category'])){
-            $query->where('category_id', 'like', '%' . $filters['category'] . '%');
+            $category = Category::where('slug', 'like', '%' . $filters['category'] . '%')->first();
+            $query->where('category_id', 'like', '%' . $category->id . '%');
         }
         if(isset($filters['sort'])){
             if($filters['sort'] == 'pricehl'){
