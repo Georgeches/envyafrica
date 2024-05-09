@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    backupGlobals="false"
+    bootstrap="vendor/autoload.php"
+    colors="true"
+    processIsolation="false"
+    stopOnFailure="false"
+>
+    <testsuite name="Package Test Suite">
+        <directory suffix="Test.php">tests</directory>
+    </testsuite>
+    <coverage>
+        <report>
+            <clover outputFile="clover.xml"/>
+        </report>
+    </coverage>
+    <logging>
+        <junit outputFile="junit.xml"/>
+    </logging>
+    <source>
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+    </source>
+</phpunit>
