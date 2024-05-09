@@ -6,7 +6,7 @@
                 <img class="w-100" src="https://i.pinimg.com/736x/2a/18/bc/2a18bceeab252f776447374f5bd7d87e.jpg"/>
             </div>
             <div class="design-texts text-center">
-                <h3>Lace Front Wigs</h3>
+                <h3>LACE FRONT WIGS</h3>
                 <p class="">Give Yourself A Brand New Look</p>
             </div>
         </div>
