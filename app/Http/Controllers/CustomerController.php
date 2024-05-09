@@ -91,6 +91,7 @@ class CustomerController extends Controller
 
     public function getCountries(){
         return [
+            ['value' => '+254', 'label' => 'Kenya'],
             ['value' => '+93', 'label' => 'Afghanistan'],
             ['value' => '+355', 'label' => 'Albania'],
             ['value' => '+213', 'label' => 'Algeria'],

@@ -176,7 +176,7 @@
                     type="text"
                     name="city"
                     autoComplete="off"
-                    placeholder="Nairobi"
+                    placeholder="e.g Nairobi"
                     class="form-control"
                     value='{{$customer['city']}}'
                     spellCheck="false"
