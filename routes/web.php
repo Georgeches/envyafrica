@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CookieController;
 use App\Http\Controllers\PaymentController;
@@ -55,6 +56,7 @@ Route::post('/order/new', [OrderController::class, 'new']);
 
 Route::get('/stk/initiate', [PaymentController::class, 'initiateSTK']);
 Route::get('/stk/callback', [PaymentController::class, 'stkCallback']);
+Route::get('/pesapal/callback', [CardController::class, 'callback']);
 
 //Admin
 // Route::get('/adminpage', [AdminController::class, 'index']);

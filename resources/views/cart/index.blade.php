@@ -10,12 +10,9 @@
         $link='/customerinfo';
     }
 
-    $cartItems = session('cart');
-    
-    function getImage($item){
-        $image = $item['image'];
-        $imageLink = "/storage" . "/" . $image;
-        return ;
+    $cartItems = session()->get('cart');
+    if($cartItems == null){
+        $cartItems=array();
     }
 @endphp
 
@@ -40,7 +37,7 @@
                     @foreach ($cartItems as $item)
                         <div class="row border-top">
                             <div class="row main align-items-center">
-                                <div class="col-2"><img class="img-fluid" src='{{ getImage($item) }}'></div>
+                                <div class="col-2"><img class="img-fluid" src="{{asset("storage/$item->image")}}"></div>
                                 <div class="col">
                                     <div class="row text-muted">{{$item['name']}}</div>
                                     <div class="row">{{$item['price']}}</div>

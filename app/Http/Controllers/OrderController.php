@@ -27,9 +27,7 @@ class OrderController extends Controller
     public function new(Request $request){
         $cartDetails = $this->getCartDetails();
         $customers = Customer::all();
-        $mpesaPhone = $request->validate([
-            'phone'=>'required|min:10|max:10',
-        ]);
+        $payMethod = $request->payMethod;
 
         //create customer
         $customerDetails = session()->get('customer');
@@ -96,15 +94,34 @@ class OrderController extends Controller
                 ->to($customerDetails['email']);
             Mail::send($newMail);
 
-            $paymentData = [
-                'amount' => $cartDetails['total'],
-                'phone' => $mpesaPhone['phone'],
-                'order_number' => $newOrder->number,
-                'order_id' => $newOrder->id
-            ];
+            if($payMethod === 'mpesa'){
+                $mpesaPhone = $request->validate([
+                    'phone'=>'required|min:10|max:10',
+                ]);
 
-            $paymentController = app()->make(\App\Http\Controllers\PaymentController::class);
-            $paymentController->initiateSTK($paymentData);
+                $paymentData = [
+                    'amount' => $cartDetails['total'],
+                    'phone' => $mpesaPhone['phone'],
+                    'order_number' => $newOrder->number,
+                    'order_id' => $newOrder->id
+                ];
+    
+                $paymentController = app()->make(\App\Http\Controllers\PaymentController::class);
+                $paymentController->initiateSTK($paymentData);
+            }
+            else if($payMethod === 'pesapal'){
+                $payDetails = [
+                    'amount' => $cartDetails['total'],
+                    'order_id' => $newOrder->id,
+                    'first_name' => $customerDetails['firstname'],
+                    'last_name' => $customerDetails['secondname'],
+                    'email' => $customerDetails['email'],
+                    'phone' => $customerDetails['phone']
+                ];
+
+                $cardController = app()->make(\App\Http\Controllers\CardController::class);
+                $cardController->make_payment($payDetails);
+            }
 
             return redirect('/')->with('success', 'Order has been sent successfully');
         }

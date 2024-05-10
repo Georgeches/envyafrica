@@ -9,24 +9,24 @@ use Illuminate\Http\Request;
 class CardController extends Controller
 {
     
-    public function make_payment(Request $request, $details)
+    public function make_payment($details)
     {
 
         $res = $this->generateToken();
         $token = json_decode($res);
 
-        $order_id = $details->order_id;
-        $first_name = $request->user_name;
-        $last_name = '';
-        $email = $request->user_email;
-        $phone = $request->user_number;
+        $order_id = $details['order_id'];
+        $first_name = $details['first_name'];
+        $last_name = $details['last_name'];
+        $email = $details['email'];
+        $phone = $details['phone'];
 
         $currency = 'KES';
-        $amount = $details->amount;
+        $amount = $details['amount'];
         //$amount=1;
-        $description = $request->description;
-        $callback_url = url('/').'/pesapal/card/payment/callback';
-        $notification_id = env('PESAPAL_NOTIFICATION_ID');
+        $description = 'Pay ' . $details['amount'] . ' to EnvyAfrica.';
+        $callback_url = url('/').'/pesapal/callback';
+        // $notification_id = env('PESAPAL_NOTIFICATION_ID');
 
         // dd($callback_url);
 
@@ -38,7 +38,7 @@ class CardController extends Controller
                 "amount": "'.$amount.'",
                 "description": "'.$description.'}",
                 "callback_url": "'.$callback_url.'",
-                "notification_id": "'.$notification_id.'",
+                "notification_id": "",
                 "billing_address": {
                     "email_address": "'.$email.'",
                     "phone_number": "'.$phone.'",
@@ -73,8 +73,6 @@ class CardController extends Controller
 
             $url = 'https://pay.pesapal.com/v3/api/Transactions/SubmitOrderRequest';
             $res = $this->submitRequest($url, $post_string, $headers, 'POST');
-
-            // dd($res);
             $result = json_decode($res, true);
             dd($result);
 
@@ -244,8 +242,8 @@ class CardController extends Controller
     {
 
         $credentials = [
-            'consumer_key' => env('PESAPAL_KEY_TEST'),
-            'consumer_secret' => env('PESAPAL_SECRET_TEST'),
+            'consumer_key' => env('PESAPAL_CONSUMER_KEY'),
+            'consumer_secret' => env('PESAPAL_CONSUMER_SECRET'),
 
         ];
 
@@ -270,7 +268,6 @@ class CardController extends Controller
         //dd($result);
 
         if (isset($result['token'])) {
-
             $response['result_code'] = 0;
             $response['message'] = 'Success';
             $response['data'] = $result['token'];
@@ -290,7 +287,6 @@ class CardController extends Controller
             }
 
         }
-
         return json_encode($response);
 
     }

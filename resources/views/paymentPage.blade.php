@@ -59,15 +59,21 @@
                 <hr class="mt-5"/>
             </div>
         </div>
-
+        
         <div class='mpesa-form row justify-content-center' x-show="mpesaOpen">
             <div class='col-12 col-lg-6'>
+                <form action="/order/new" method="POST" class="mb-3">
+                    @csrf
+                    <input type="hidden" value="pesapal" name="payMethod"/>
+                    <button type="submit" class="btn btn-primary">Pay using pesapal</button>
+                </form>
                 <form action="/order/new" method="POST">
                     @csrf
                     <h5 class="mb-3 text-success">Lipa na Mpesa</h5>
                     <label for="first-name" class="fw-bold form-label">
                             Mobile number
                     </label>
+                    <input type="hidden" value="mpesa" name="payMethod"/>
                     <input
                         autoComplete="off"
                         type="number"
