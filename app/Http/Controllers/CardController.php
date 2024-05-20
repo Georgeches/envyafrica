@@ -14,6 +14,7 @@ class CardController extends Controller
 
         $res = $this->generateToken();
         $token = json_decode($res);
+        $ipn = $this->registerIPN($token);
 
         $order_id = $details['order_id'];
         $first_name = $details['first_name'];
@@ -115,6 +116,26 @@ class CardController extends Controller
             return $token;
         }
 
+    }
+
+    public function registerIPN($token){
+        if(!$token->result_code==0) {
+            return ['success' => false, 'message' => 'Failed to obtain Token', 'response' => $token];
+        }
+
+        $url = 'https://cybqa.pesapal.com/pesapalv3/api/URLSetup/RegisterIPN';
+        $headers = array("Content-Type" => "application/json", 'accept' => 'application/json', 'Authorization' => 'Bearer ' . $token->data);
+
+        $body = json_encode(array(
+            "url" => url('/').'/pesapal/callback',
+            "ipn_notification_type" => 'POST',
+        ));
+
+        $res = $this->submitRequest($url, $body, $headers, 'POST');
+        $result = json_decode($res);
+        dd($result);
+
+        return $result;
     }
 
     public function callback(Request $request)

@@ -1,4 +1,5 @@
 @php
+    $categories = App\Models\Category::all();
     $cart = session()->get('cart', []);
     $itemsCount = 0;
     if(isset($cart)){
@@ -26,13 +27,24 @@
             </div>
         </div>
     </div>
-    <div class="nav2">
-        <ul class="d-flex mt-2 justify-content-center align-items-center gap-5 text-dark">
+    <div class="nav2 d-flex justify-content-center align-items-center pt-4">
+        <ul class="d-flex mt-2 justify-content-start align-items-center gap-5 text-dark w-75" style="overflow-x: scroll">
             <li class="nav2-item fw-bold"><p><a href="/all">Shop</a></p></li>
-            <li class="nav2-item"><p><a href="/all?category=lace-front-wigs">Lace front wigs</a></p></li>
-            <li class="nav2-item"><p><a href="/all?category=human-hair-wigs">Human hair wigs</a></p></li>
-            <li class="nav2-item"><p><a href="/all?category=human-hair-wigs">Hand tied wigs</a></p></li>
-            <li class="nav2-item"><p><a href="/all?category=monofilament-wigs">Monofilament wigs</a></p></li>
+            @foreach ($categories as $category)
+                <li class="nav2-item"  style="min-width: fit-content">
+                    <p><a href="/all?category={{$category->id}}">{{$category->name}}</a></p>
+                </li>
+            @endforeach
+            @foreach ($categories as $category)
+                <li class="nav2-item" style="min-width: fit-content">
+                    <p><a href="/all?category={{$category->id}}">{{$category->name}}</a></p>
+                </li>
+            @endforeach
+            @foreach ($categories as $category)
+                <li class="nav2-item" style="min-width: fit-content">
+                    <p><a href="/all?category={{$category->id}}">{{$category->name}}</a></p>
+                </li>
+            @endforeach
         </ul>
     </div>
 </div>

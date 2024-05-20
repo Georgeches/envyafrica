@@ -6,7 +6,7 @@
                 <p class="lead display-12">Sign up for our newsletter</p>
                 <form>
                     <input type="email" id="subscribe" spellCheck="false" placeholder="example@gmail.com" class="form-control border-0 shadow-sm" />
-                    <button type="submit" class="btn btn-warning text-light bt-lg mb-4 mt-4">
+                    <button type="submit" class="btn text-light bt-lg mb-4 mt-4" style="background: rgb(255,34,106)">
                         Subscribe
                     </button>
                 </form>
@@ -26,7 +26,7 @@
 
                 <label htmlFor="message" class="form-label mt-4">Message</label>
                 <textarea style="height: 200px" spellCheck="false" class="form-control border-0 shadow-sm" placeholder="Your message or query" id="name" name="message"></textarea>
-                <button class='btn btn-warning mt-3 text-white send-btn'>Send</button>
+                <button class='btn mt-3 text-white send-btn' style="background: rgb(255,34,106);">Send</button>
             </form>
             </div>
             

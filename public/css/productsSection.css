@@ -1,6 +1,7 @@
 .ready-products{
     position: relative;
     top: 100px;
+    height: 620px;
 }
 
 .product-details i{
@@ -59,12 +60,12 @@
 
 .ready-row{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    justify-content: start;
+    height: 100%;
 }
 
 .view-all{
-    color: rgb(255, 183, 0);
+    color: rgb(255,34,106);
 }
 
 @media only screen and (max-width: 600px){
